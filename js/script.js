@@ -33,9 +33,11 @@ function getCardValue(cardName){
     }
   }
 
+function getRandomNumber (min, max){//order maders
+  return Math.floor(Math.random()*(max - min + 1));//
+}
 
+function pickACard(){//use above to get a card
 
-
-// function getRandomNumber (max, min){//from google
-//   return math.floor(math.random()*(max - min + 1))+1);
-// }
+}
+// Min + (int)(Math.random() * ((Max - Min) + 1))
