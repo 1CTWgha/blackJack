@@ -1,13 +1,11 @@
 var deck = [];// will contain card objects
-var dealer = {"hand": []};//
-var player = {"hand": []};//
+var dealer = {"hand": []};
+var player = {"hand": []};
 
 $(document).ready(function (){
 initalizeDeck();
 initializeHands();
 
-//runPlayer();
-//runDealer();
 });
 
 function initalizeDeck(){
@@ -15,11 +13,6 @@ function initalizeDeck(){
     var card = cardNames[i];//saves selected card
     deck.push(card);//push cards
     // console.log(card);//prints all 52 cards
-
-    var visibility = false;//not working yet????? needs to call to the card
-
-    var cardValues = getCardValue(cardNames[i]);//saves cardNames value
-    deck.push(cardValues);//push value
   }
 }
 
@@ -28,14 +21,14 @@ function getCardValue(cardName){
   //want strings so that I can evaluate face cards and aces
   var valueOne = parseInt(rank, 10);//makes a number
   if (isNaN(valueOne)){ //if not a number
-    if (rank[0] === "a"){//if first value = a
-      return [1, 11];// its an ace and there are two possible values
+    if (rank[0] === "a") {//if first value = a
+      return 1;// its an ace and there are two possible values
     } else {//else its not a number or a numeric card
-      return [10];// then it must be a face card with a value of 10
+      return 10;// then it must be a face card with a value of 10
     }
   }
     else {// only remaing possibilities are numeric cards
-      return [valueOne];//so return the numeric card value
+      return valueOne;//so return the numeric card value
     }
 }
 
@@ -56,30 +49,28 @@ function pickACard(){//use above to get a card
     //if not true meaning deck[c] has been dealt false (if card is drawn false)
   }
 
-function makeCardVisible(card){//gets card from makes card visible
-  card.visibility = true;//make visibility true turn card over
-  return card;//returns card
+function hideFirstDealerCard(){//gets card from makes card visible
+  // once cards are on the page.
+  // use jQuery to select the first dealer card and apply a special class
+  // to it so it's hidden.
+  //$().addClass("hidden-card");
 }
 
 function initializeHands(){//run after initalizeDeck
-  dealer.hand.push(makeCardVisible(pickACard()));//push and turn card over
+  dealer.hand.push(pickACard());//push and turn card over
   dealer.hand.push(pickACard());//push and leave card not turned over
-  player.hand.push(makeCardVisible(pickACard()));//push and turn card over
-  player.hand.push(makeCardVisible(pickACard()));//push and turn card over
+  player.hand.push(pickACard());//push and turn card over
+  player.hand.push(pickACard());//push and turn card over
 }
 
 function evaluateHand(who){
   var total = 0;
   for (var i = 0; i<who.hand.length; i++){//loops over the hand and grabs the hand from the who
     //need to figure out how to pull in the hand of who
-    if(who.hand[i].values.length == 1){ total += who.hand[i].values[0]; }//still need to figure out how to pass in the hand to the who???
-      var aceCount = countAce(who.hand[i]);//calling countAce function to determine number of aces
-      if(aceCount === 0){
-        return total;
-      }
-      else return [ total + 10 + aceCount ];//count the total plus the ace
-      //and any additional ace which will be a 1
+    var value = getCardValue(who.hand[i]);
+    total += value;
   }
+  return total;
 }
 
 function countAce(hand){//pass in the hand
