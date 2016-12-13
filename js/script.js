@@ -1,11 +1,13 @@
 var deck = [];// will contain card objects
-var dealer = [];
-var player = [];
-var hand = [];//Not sure how to get this for each player or dealer???need to grab from the current player
+var dealer = {"hand": []};//
+var player = {"hand": []};//
 
 $(document).ready(function (){
 initalizeDeck();
+initializeHands();
 
+//runPlayer();
+//runDealer();
 });
 
 function initalizeDeck(){
@@ -14,15 +16,17 @@ function initalizeDeck(){
     deck.push(card);//push cards
     // console.log(card);//prints all 52 cards
 
+    var visibility = false;//not working yet????? needs to call to the card
+
     var cardValues = getCardValue(cardNames[i]);//saves cardNames value
     deck.push(cardValues);//push value
   }
 }
 
-function getCardValue(cardName){//still returns a "string"!!!!!!!???????
+function getCardValue(cardName){
   var rank = cardName.split("_", 1)[0];//divide argument by "_" only once similar to parsInt; {gives me a string not an array not sure if [] still needed at the end}
   //want strings so that I can evaluate face cards and aces
-  var valueOne = parseInt(rank, 10);
+  var valueOne = parseInt(rank, 10);//makes a number
   if (isNaN(valueOne)){ //if not a number
     if (rank[0] === "a"){//if first value = a
       return [1, 11];// its an ace and there are two possible values
@@ -51,6 +55,18 @@ function pickACard(){//use above to get a card
     while (true);//when true keep dealing
     //if not true meaning deck[c] has been dealt false (if card is drawn false)
   }
+
+function makeCardVisible(card){//gets card from makes card visible
+  card.visibility = true;//make visibility true turn card over
+  return card;//returns card
+}
+
+function initializeHands(){//run after initalizeDeck
+  dealer.hand.push(makeCardVisible(pickACard()));//push and turn card over
+  dealer.hand.push(pickACard());//push and leave card not turned over
+  player.hand.push(makeCardVisible(pickACard()));//push and turn card over
+  player.hand.push(makeCardVisible(pickACard()));//push and turn card over
+}
 
 function evaluateHand(who){
   var total = 0;
@@ -94,18 +110,19 @@ function countAce(hand){//pass in the hand
 
 
 function hitMe(){
-  $("#hit").on("click", function() {
-  event.preventDefault();
+  $("#hit").on("click", function() {//adding click event to hit me button
+  event.preventDefault();//preventing reset of page
+  var values = evaluateHand(player);//returns the value from evaluateHand(players score after they get another card)
 
 });
-
 }
 
 function stayMe(){
-  $("#stay").on("click", function() {
-  event.preventDefault();
-});
+  $("#stay").on("click", function() {//adding click event to hit me button
+  event.preventDefault();//preventing reset of page
+  return evaluateHand(player);//returns the value from evaluateHand(no more cards)
 
+});
 }
 
 // function runPlayer(){//look at and evaluate players hand
