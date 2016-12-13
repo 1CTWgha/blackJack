@@ -52,9 +52,25 @@ function pickACard(){//use above to get a card
   }
 
 function evaluateHand(who){
-  var i = 0;
+  var total = 0;
+  for (var i = 0; i<who.hand.length; i++){//loops over the hand
+    if(who.hand[i].values.length == 1){ total += who.hand[i].values[0]; }//
+      var aceCount = countAce(who.hand[i]);//calling countAce function to determine number of aces
+      if(aceCount === 0){
+        return total;
+      }
+      else return [aceCount + total ];//????? 
+  }
+}
 
-
+function countAce(hand){//pass in the hand
+  var aceCount = 0;
+  for(var i =0; i<hand.length; i++){//loop through based off of the length of the hand
+    if(hand[i].values.length > 1){//if more than one add another
+      aceCount++;//add another ace
+    }
+  }
+  return aceCount;//return the number of aces
 }
 // function calculateScore(cards) {
 //     var minScore = 0;
