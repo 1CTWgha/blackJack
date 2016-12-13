@@ -1,6 +1,7 @@
 var deck = [];// will contain card objects
 var dealer = [];
 var player = [];
+var hand = [];//Not sure how to get this for each player or dealer???need to grab from the current player
 
 $(document).ready(function (){
 initalizeDeck();
@@ -53,13 +54,15 @@ function pickACard(){//use above to get a card
 
 function evaluateHand(who){
   var total = 0;
-  for (var i = 0; i<who.hand.length; i++){//loops over the hand
-    if(who.hand[i].values.length == 1){ total += who.hand[i].values[0]; }//
+  for (var i = 0; i<who.hand.length; i++){//loops over the hand and grabs the hand from the who
+    //need to figure out how to pull in the hand of who
+    if(who.hand[i].values.length == 1){ total += who.hand[i].values[0]; }//still need to figure out how to pass in the hand to the who???
       var aceCount = countAce(who.hand[i]);//calling countAce function to determine number of aces
       if(aceCount === 0){
         return total;
       }
-      else return [aceCount + total ];//????? 
+      else return [ total + 10 + aceCount ];//count the total plus the ace
+      //and any additional ace which will be a 1
   }
 }
 
@@ -91,10 +94,17 @@ function countAce(hand){//pass in the hand
 
 
 function hitMe(){
+  $("#hit").on("click", function() {
+  event.preventDefault();
+
+});
 
 }
 
 function stayMe(){
+  $("#stay").on("click", function() {
+  event.preventDefault();
+});
 
 }
 
@@ -108,10 +118,10 @@ function stayMe(){
 //   }
 //  }
 
-function runDealer(){//look at and evaluate dealer hand
-  if(dealerhand21){
-    //announce player winner
-  } else {
-    //add click events to the hit and stay buttons
-  }
- }
+// function runDealer(){//look at and evaluate dealer hand
+//   if(dealerhand21){
+//     //announce player winner
+//   } else {
+//     //add click events to the hit and stay buttons
+//   }
+//  }
