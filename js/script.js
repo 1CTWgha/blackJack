@@ -51,18 +51,51 @@ function pickACard(){//use above to get a card
     //if not true meaning deck[c] has been dealt false (if card is drawn false)
   }
 
-function evaluateHand(){
+function evaluateHand(who){
+  var i = 0;
+
+
+}
+// function calculateScore(cards) {
+//     var minScore = 0;
+//     cards.forEach(function(card){
+//       minScore += card.value;
+//     });
+//
+//     var maxScore = minScore;
+//     cards.forEach(function(card){
+//       // checks if setting an ace value to 11 busts the hand. if not, add 10 to value of ace.
+//       if (card.value === 1 && maxScore + 10 <= 21) {
+//         maxScore += 10;
+//       }
+//     });
+//     console.log("maxscore", maxScore);
+//     return maxScore;
+//   }
+
+
+function hitMe(){
 
 }
 
-function runPlayer(){//look at and evaluate players hand
+function stayMe(){
 
- }
+}
+
+// function runPlayer(){//look at and evaluate players hand
+//   if(=21){
+//     alert("player wins");
+//   } else {
+//     $("#hit").on("click", hitMe());
+//     $("stay").on("click", stayMe());
+//     //add click events to the hit and stay buttons
+//   }
+//  }
 
 function runDealer(){//look at and evaluate dealer hand
-
- }
-
- function displayScore(){
-
+  if(dealerhand21){
+    //announce player winner
+  } else {
+    //add click events to the hit and stay buttons
+  }
  }
