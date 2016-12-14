@@ -1,12 +1,23 @@
 var deck = [];// will contain card objects
 var dealer = {"hand": []};
 var player = {"hand": []};
+var board = document.getElementById("#inner");//is to append new div to
+
 
 $(document).ready(function (){
 initalizeDeck();
 initializeHands();
+addCard();
 
 });
+
+function addCard(board, cardToShow){
+  var cardDiv = document.createElement('div');//creating a new div element
+  cardDiv.className += 'card';//giving the new div a class of card
+  board.appendChild(cardDiv);//inserting the new div to the end of the board
+  // var cardDiv = $("#inner").addClass("card").appendChild(cardDiv);
+  return cardDiv;//return the new card div
+}
 
 function initalizeDeck(){
   for (var i = 0; i<cardNames.length; i++){//loops through cardNames
@@ -53,7 +64,7 @@ function hideFirstDealerCard(){//gets card from makes card visible
   // once cards are on the page.
   // use jQuery to select the first dealer card and apply a special class
   // to it so it's hidden.
-  //$().addClass("hidden-card");
+  // $().addClass("hidden-card");
 }
 
 function initializeHands(){//run after initalizeDeck
@@ -100,21 +111,21 @@ function countAce(hand){//pass in the hand
 //   }
 
 
-function hitMe(){
-  $("#hit").on("click", function() {//adding click event to hit me button
-  event.preventDefault();//preventing reset of page
-  var values = evaluateHand(player);//returns the value from evaluateHand(players score after they get another card)
-
-});
-}
-
-function stayMe(){
-  $("#stay").on("click", function() {//adding click event to hit me button
-  event.preventDefault();//preventing reset of page
-  return evaluateHand(player);//returns the value from evaluateHand(no more cards)
-
-});
-}
+// function hitMe(){
+//   $("#hit").on("click", function() {//adding click event to hit me button
+//   event.preventDefault();//preventing reset of page
+//   var values = evaluateHand(player);//returns the value from evaluateHand(players score after they get another card)
+//
+// });
+// }
+//
+// function stayMe(){
+//   $("#stay").on("click", function() {//adding click event to hit me button
+//   event.preventDefault();//preventing reset of page
+//   return evaluateHand(player);//returns the value from evaluateHand(no more cards)
+//
+// });
+// }
 
 // function runPlayer(){//look at and evaluate players hand
 //   if(=21){
