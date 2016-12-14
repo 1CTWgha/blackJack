@@ -11,7 +11,12 @@ initializeHands();
 $("#hit").on("click", playerHit);
 $("#stay").on("click", playerStay);
 
+$("#reset").on("click", resetGame);
 });
+
+function resetGame(){
+
+}
 
 function playerStay(){
   while(getHandValue(dealer) < 17){
@@ -34,7 +39,20 @@ function playerStay(){
       return;
     }
   }
-    // return getHandValue(dealer);
+  if (getHandValue(dealer) >= getHandValue(player)){
+    winner(dealer);
+  } else {
+    winner(player);
+  }
+      // winner(player);
+  // for (var i=0; i<dealer.hand; i++){
+  //   var dealerScore = 0;
+  //   dealerScore += dealer.hand[i];
+  //   console.log(dealerScore);
+  //   }
+  $("#hit").off();
+  $("#stay").off();
+  return;
 }
 
 function playerHit() {//adding click event to hit me button
@@ -164,6 +182,9 @@ function dealACard(who){
   if(who === player){
     var value = getHandValue(player);
     $("#pvalues").html(value + "");
+  } else {
+    var dealerValue = getHandValue(dealer);
+    $("#dvalues").html(dealerValue + "");
   }
 }
 
