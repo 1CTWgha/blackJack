@@ -1,9 +1,19 @@
 .card {
-  height: 73px;
-  width: 50px;
+  /*height: 125px;
+  width:100px;*/
   /*background-color: black;*/
+  display: inline-block;
+  text-align: center;
+}
+#container {
+  margin: 0 auto;
+  align: center;
 }
 img {
-  height: 73px;
-  width: 50px;
+  height: 125px;
+  width: 100px;
+  margin: 10px;
 }
+/*.order {
+  display: inline-block;
+}*/

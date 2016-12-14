@@ -8,23 +8,33 @@ initalizeDeck();
 initializeHands();
 //check for dealer win = 21
 // addCard();
-  $("#hit").on("click", playerHit);
-  $("#stay").on("click", playerStay);
+$("#hit").on("click", playerHit);
+$("#stay").on("click", playerStay);
+
 });
 
 function playerStay(){
-  while(getHandValue(dealer) < 16){
+  while(getHandValue(dealer) < 17){
     dealACard(dealer);
     var val = getHandValue(dealer);
     if (val < 21){
+      $("#hit").off();
+      $("#stay").off();
       continue;
     }
-    if (val > 21){
+    else if (val > 21){
       busted(dealer);
+      $("#hit").off();
+      $("#stay").off();
+      return;
+    } else {
+      winner(dealer);
+      $("#hit").off();
+      $("#stay").off();
       return;
     }
-      winner(dealer);
   }
+    // return getHandValue(dealer);
 }
 
 function playerHit() {//adding click event to hit me button
@@ -34,12 +44,19 @@ function playerHit() {//adding click event to hit me button
   if (val < 21){
     return;
   }
-  if (val > 21){
+  else if (val > 21){
     busted(player);
+    $("#hit").off();
+    $("#stay").off();
+    return;
+  } else {
+    winner(player);
+    $("#hit").off();
+    $("#stay").off();
     return;
   }
-    winner(player);
 }
+
 
 function busted(who){
   $("#result").html(((who === player)?"Player":"Dealer") + " is busted.");
@@ -175,6 +192,15 @@ function countAce(hand){//pass in the hand
     }
   }
   return aceCount;//return the number of aces
+}
+
+function any21(values){
+  for(var i = 0; i<values.length; i++){
+    if(values[i] === 21){
+      return true; //value equales 21
+    }
+  }
+  return false;//value does not equal 21
 }
 // function calculateScore(cards) {
 //     var minScore = 0;
