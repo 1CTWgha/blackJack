@@ -1,29 +1,65 @@
 var deck = [];// will contain card objects
 var dealer = {"hand": []};
 var player = {"hand": []};
-var board = document.getElementById("#inner");//is to append new div to
-
+// var board = document.getElementById("#inner");//is to append new div
 
 $(document).ready(function (){
 initalizeDeck();
 initializeHands();
-addCard();
-
+//check for dealer win = 21
+// addCard();
+  $("#hit").on("click", playerHit);
+  $("#stay").on("click", playerStay);
 });
 
-function addCard(board, cardToShow){
-  var cardDiv = document.createElement('div');//creating a new div element
-  cardDiv.className += 'card';//giving the new div a class of card
-  board.appendChild(cardDiv);//inserting the new div to the end of the board
-  // var cardDiv = $("#inner").addClass("card").appendChild(cardDiv);
-  return cardDiv;//return the new card div
+function playerStay(){
+  while(getHandValue(dealer) < 16){
+    dealACard(dealer);
+    var val = getHandValue(dealer);
+    if (val < 21){
+      continue;
+    }
+    if (val > 21){
+      busted(dealer);
+      return;
+    }
+      winner(dealer);
+  }
 }
+
+function playerHit() {//adding click event to hit me button
+// event.preventDefault();//preventing reset of page
+  dealACard(player);
+  var val = getHandValue(player);
+  if (val < 21){
+    return;
+  }
+  if (val > 21){
+    busted(player);
+    return;
+  }
+    winner(player);
+}
+
+function busted(who){
+  $("#result").html(((who === player)?"Player":"Dealer") + " is busted.");
+}
+
+function winner(who){
+  $("#result").html(((who === player)?"Player":"Dealer") + " is the winner.");
+}
+
+// function addCard(board){//need to loop through dealer and player cards//add second parameter to show card
+//   var cardDiv = $('<div>');//creating a new div element
+//   cardDiv.addClass('card');//giving the new div a class of card
+//   board.append(cardDiv);//inserting the new div to the end of the board
+//   return cardDiv;//return the new card div
+// }
 
 function initalizeDeck(){
   for (var i = 0; i<cardNames.length; i++){//loops through cardNames
     var card = cardNames[i];//saves selected card
     deck.push(card);//push cards
-    // console.log(card);//prints all 52 cards
   }
 }
 
@@ -32,7 +68,7 @@ function getCardValue(cardName){
   //want strings so that I can evaluate face cards and aces
   var valueOne = parseInt(rank, 10);//makes a number
   if (isNaN(valueOne)){ //if not a number
-    if (rank[0] === "a") {//if first value = a
+    if (rank === "ace") {//if first value = a
       return 1;// its an ace and there are two possible values
     } else {//else its not a number or a numeric card
       return 10;// then it must be a face card with a value of 10
@@ -43,13 +79,44 @@ function getCardValue(cardName){
     }
 }
 
+// function checkCard (){//called when
+//   var randNum = Math.floor(Math.random()*51);
+//     for (var i =0; i<player.hand.length; i++){
+//       if(player.hand[i] === cardNames[randNum]){
+//         checkCard();
+//       }
+//       console.log("in for loop function");
+//     }
+//     for (var j =0; j<dealer.hand.length; j++){
+//       if(dealer.hand[i] === cardNames[randNum]){
+//         checkCard();
+//       }
+//     }
+//     player.hand.push(cardNames[randNum]);
+//     console.log(player.hand);
+// }
+
+function getHandValue(who){
+var total = 0;
+  for (var i = 0; i<who.hand.length; i++){
+    var val = getCardValue(who.hand[i]);
+    total += val;
+    // if (total += value < 21){
+    //   total += val;
+    // } else {
+    //   return "busted";
+    // }
+  }
+  return total;
+}
+
 function getRandomNumber (min, max){//order maders
   return Math.floor(Math.random()*(max - min + 1));//gives me a random number when values entered
 }
 // Min + (int)(Math.random() * ((Max - Min) + 1))
 
 function pickACard(){//use above to get a card
-  do {
+  do {//push a card into an array fro every card that is dealt
     var c = getRandomNumber(0, 51);//picks random number in the deck
     if (!deck[c].dealt){//deal the card if it has not been dealt
       deck[c].dealt = true;// if not dealt then set dealt to true(removes card from deck(dealable cards))
@@ -67,11 +134,27 @@ function hideFirstDealerCard(){//gets card from makes card visible
   // $().addClass("hidden-card");
 }
 
+function dealACard(who){
+  var where = (who === player)?"#pcards":"#dcards";
+  var card = pickACard();
+  var div = $("<div>");
+  div.addClass("card");
+  who.hand.push(card);
+  // card = card.substring(0, card.length-4);
+  div.html('<img src="img/' + card + '"/>' );
+  $(where).append(div);
+
+  if(who === player){
+    var value = getHandValue(player);
+    $("#pvalues").html(value + "");
+  }
+}
+
 function initializeHands(){//run after initalizeDeck
-  dealer.hand.push(pickACard());//push and turn card over
-  dealer.hand.push(pickACard());//push and leave card not turned over
-  player.hand.push(pickACard());//push and turn card over
-  player.hand.push(pickACard());//push and turn card over
+  dealACard(dealer);
+  dealACard(dealer);
+  dealACard(player);
+  dealACard(player);
 }
 
 function evaluateHand(who){
@@ -111,13 +194,6 @@ function countAce(hand){//pass in the hand
 //   }
 
 
-// function hitMe(){
-//   $("#hit").on("click", function() {//adding click event to hit me button
-//   event.preventDefault();//preventing reset of page
-//   var values = evaluateHand(player);//returns the value from evaluateHand(players score after they get another card)
-//
-// });
-// }
 //
 // function stayMe(){
 //   $("#stay").on("click", function() {//adding click event to hit me button
