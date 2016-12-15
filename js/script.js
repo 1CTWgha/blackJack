@@ -7,6 +7,7 @@ $(document).ready(function (){
 initalizeDeck();
 initializeHands();
 isHand21();
+// cardDown();
 
 $("#hit").on("click", playerHit);
 $("#stay").on("click", playerStay);
@@ -53,19 +54,45 @@ function dealACard(who){//assign values to existing divs
   // card = card.substring(0, card.length-4);
   div.html('<img src="img/' + card + '"/>' );
   $(where).append(div);
+  $("#dcards .card img").eq(1).hide();
+  // $("#dcards").invisible();
+  // $( "div:visible" ).click(function() {
+  // $( this ).css( "background", "yellow" );
+  // });
+  // $("#dcards img")[0].hide();
+  // $("#dcards img")[0].css( "background", "yellow" );
+
+
+  // document.getElementById("dcards").style.visibility = "hidden";
+
+  // $("#dcards").style.visibility = "hidden";
 
   // var dealVal = getHandValue(dealer);
   // var playVal = getHandValue(player);
-
-
   if(who === player){
     var value = getHandValue(player);
     $("#pvalues").text(value);
   } else {
     var dealerValue = getHandValue(dealer);
-    $("#dvalues").text(dealerValue + "");
+    // $("#dvalues").text(dealerValue + "");
+      // $(dealerValue).hide();
   }
 }
+
+function cardDown(who){//need to loop through dealer and player cards//add second parameter to show card
+  var cardDiv = $('<div>');//creating a new div element
+  cardDiv.addClass('card');//giving the new div a class of card
+  who.hand.push(cardDiv);//inserting the new div to the end of the board
+  return cardDiv;//return the new card div
+}
+
+// function hideFirstDealerCard(){//gets card from makes card visible
+//   // once cards are on the page.
+//   // use jQuery to select the first dealer card and apply a special class
+//   // to it so it's hidden.
+//   // $().addClass("hidden-card");
+// }
+
 
 
 function playerStay(){
@@ -156,10 +183,12 @@ function playerHit() {//adding click event to hit me button
 
 function busted(who){
   $("#result").text((((who === player)?"Player":"Dealer") + " is busted."));
+  $("#dcards .card img").eq(1).show();
 }
 
 function winner(who){
   $("#result").text((((who === player)?"Player":"Dealer") + " is the winner."));
+  $("#dcards .card img").eq(1).show();
 }
 
 function initalizeDeck(){
@@ -247,13 +276,6 @@ function pickACard(){//use above to get a card
     //if not true meaning deck[c] has been dealt false (if card is drawn false)
   }
 
-function hideFirstDealerCard(){//gets card from makes card visible
-  // once cards are on the page.
-  // use jQuery to select the first dealer card and apply a special class
-  // to it so it's hidden.
-  // $().addClass("hidden-card");
-}
-
 function initializeHands(){//run after initalizeDeck
   dealer.hand=[];
   player.hand=[];
@@ -262,13 +284,6 @@ function initializeHands(){//run after initalizeDeck
   dealACard(player);
   dealACard(player);
 }
-
-// function addCard(board){//need to loop through dealer and player cards//add second parameter to show card
-//   var cardDiv = $('<div>');//creating a new div element
-//   cardDiv.addClass('card');//giving the new div a class of card
-//   board.append(cardDiv);//inserting the new div to the end of the board
-//   return cardDiv;//return the new card div
-// }
 
 function evaluateHand(who){
   var total = 0;
