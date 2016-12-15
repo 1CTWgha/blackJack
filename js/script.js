@@ -148,6 +148,7 @@ var minTotal = 0;
 
 }
 
+
 // return minTotal;
 // }
 
