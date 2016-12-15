@@ -11,12 +11,12 @@ initializeHands();
 $("#hit").on("click", playerHit);
 $("#stay").on("click", playerStay);
 
-$("#reset").on("click", resetGame);
+// $("#reset").on("click", resetGame);
 });
 
-function resetGame(){
-
-}
+// function resetGame(){
+//
+// }
 
 function playerStay(){
   while(getHandValue(dealer) < 17){
@@ -132,18 +132,24 @@ function getCardValue(cardName){
 // }
 
 function getHandValue(who){
-var total = 0;
+var minTotal = 0;
   for (var i = 0; i<who.hand.length; i++){
     var val = getCardValue(who.hand[i]);
-    total += val;
-    // if (total += value < 21){
-    //   total += val;
-    // } else {
-    //   return "busted";
-    // }
+    minTotal += val;
   }
-  return total;
+
+  var maxTotal = minTotal;
+  for (var j = 0; j<who.hand.length; j++){
+  if (getCardValue(who.hand[j]) === 1 && maxTotal + 10 <= 21) {
+          maxTotal += 10;
+        }
+  }
+  return maxTotal;
+
 }
+
+// return minTotal;
+// }
 
 function getRandomNumber (min, max){//order maders
   return Math.floor(Math.random()*(max - min + 1));//gives me a random number when values entered
@@ -215,14 +221,14 @@ function countAce(hand){//pass in the hand
   return aceCount;//return the number of aces
 }
 
-function any21(values){
-  for(var i = 0; i<values.length; i++){
-    if(values[i] === 21){
-      return true; //value equales 21
-    }
-  }
-  return false;//value does not equal 21
-}
+// function any21(values){
+//   for(var i = 0; i<values.length; i++){
+//     if(values[i] === 21){
+//       return true; //value equales 21
+//     }
+//   }
+//   return false;//value does not equal 21
+// }
 // function calculateScore(cards) {
 //     var minScore = 0;
 //     cards.forEach(function(card){
