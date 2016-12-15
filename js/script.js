@@ -136,17 +136,24 @@ var minTotal = 0;
   for (var i = 0; i<who.hand.length; i++){
     var val = getCardValue(who.hand[i]);
     minTotal += val;
-  }
 
+  }
   var maxTotal = minTotal;
   for (var j = 0; j<who.hand.length; j++){
-  if (getCardValue(who.hand[j]) === 1 && maxTotal + 10 <= 21) {
-          maxTotal += 10;
-        }
+    if (getCardValue(who.hand[j]) === 1 && maxTotal + 10 <= 21) {
+        maxTotal += 10;
   }
-  return maxTotal;
 
 }
+return maxTotal;
+
+}
+    // var maxScore = minScore;
+    // cards.forEach(function(card){
+    //   // checks if setting an ace value to 11 busts the hand. if not, add 10 to value of ace.
+    //   if (card.value === 1 && maxScore + 10 <= 21) {
+    //     maxScore += 10;
+
 
 
 // return minTotal;
