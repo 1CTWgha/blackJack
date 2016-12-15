@@ -65,7 +65,13 @@ function playerStay(){
       // $("#hit").off();
       // $("#stay").off();
       return;
-    } else {
+    }
+    // else if (val(dealer) == 21){
+    //   winner(dealer);
+    //   $("#hit").attr("disabled", true);
+    //   $("#stay").attr("disabled", true);
+    // }
+    else {
       winner(dealer);
       $("#hit").attr("disabled", true);
       $("#stay").attr("disabled", true);
@@ -91,11 +97,16 @@ function playerHit() {//adding click event to hit me button
   console.log("before", player.hand);
   dealACard(player);
   console.log("after deal a card", player.hand);
-
+  var dealerValue = getHandValue(dealer);
   var val = getHandValue(player);
   console.log("after get ahand value", player.hand, val);
 
-  if (val < 21){
+  if (dealerValue == 21){
+    winner(dealer);
+    $("#hit").attr("disabled", true);
+    $("#stay").attr("disabled", true);
+  }
+  else if (val < 21){
     return;
   }
   else if (val > 21){
@@ -105,7 +116,13 @@ function playerHit() {//adding click event to hit me button
     // $("#hit").off();
     // $("#stay").off();
     return;
-  } else {
+  }
+  // else if (val(dealer) == 21){
+  //   winner(dealer);
+  //   $("#hit").attr("disabled", true);
+  //   $("#stay").attr("disabled", true);
+  // }
+  else {
     winner(player);
     $("#hit").attr("disabled", true);
     $("#stay").attr("disabled", true);
