@@ -6,6 +6,8 @@ var player = {"hand": []};
 $(document).ready(function (){
 initalizeDeck();
 initializeHands();
+isHand21();
+
 $("#hit").on("click", playerHit);
 $("#stay").on("click", playerStay);
 $("#reset").on("click", resetGame);
@@ -22,9 +24,24 @@ $("#stay").attr("disabled", false);
 // player.hand=[];
 initalizeDeck();
 initializeHands();
+isHand21();
 // $("#hit").on("click", playerHit);
 // $("#stay").on("click", playerStay);
 // $("#reset").on("click", resetGame);
+}
+
+function isHand21(){
+      if(getHandValue(dealer) == 21){
+        winner(dealer);
+        $("#hit").attr("disabled", true);
+        $("#stay").attr("disabled", true);
+        return;
+      } else if (getHandValue(player) == 21) {
+        winner(player);
+        $("#hit").attr("disabled", true);
+        $("#stay").attr("disabled", true);
+        return;
+      }
 }
 
 function dealACard(who){//assign values to existing divs
@@ -36,6 +53,10 @@ function dealACard(who){//assign values to existing divs
   // card = card.substring(0, card.length-4);
   div.html('<img src="img/' + card + '"/>' );
   $(where).append(div);
+
+  // var dealVal = getHandValue(dealer);
+  // var playVal = getHandValue(player);
+
 
   if(who === player){
     var value = getHandValue(player);
