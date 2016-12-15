@@ -11,12 +11,23 @@ initializeHands();
 $("#hit").on("click", playerHit);
 $("#stay").on("click", playerStay);
 
-// $("#reset").on("click", resetGame);
+$("#reset").on("click", resetGame);
 });
 
-// function resetGame(){
-//
-// }
+function resetGame(){
+// document.getElementById(elementID).innerHTML = "";
+$("#result").text("");
+$("#pvalues").text("");
+$("#dvalues").text("");
+$("#pcards").html("");
+$("#dcards").html("");
+
+initalizeDeck();
+initializeHands();
+$("#hit").on("click", playerHit);
+$("#stay").on("click", playerStay);
+$("#reset").on("click", resetGame);
+}
 
 function playerStay(){
   while(getHandValue(dealer) < 17){
@@ -77,11 +88,11 @@ function playerHit() {//adding click event to hit me button
 
 
 function busted(who){
-  $("#result").html(((who === player)?"Player":"Dealer") + " is busted.");
+  $("#result").text((((who === player)?"Player":"Dealer") + " is busted."));
 }
 
 function winner(who){
-  $("#result").html(((who === player)?"Player":"Dealer") + " is the winner.");
+  $("#result").text((((who === player)?"Player":"Dealer") + " is the winner."));
 }
 
 // function addCard(board){//need to loop through dealer and player cards//add second parameter to show card
@@ -183,7 +194,7 @@ function hideFirstDealerCard(){//gets card from makes card visible
   // $().addClass("hidden-card");
 }
 
-function dealACard(who){
+function dealACard(who){//assign values to existing divs
   var where = (who === player)?"#pcards":"#dcards";
   var card = pickACard();
   var div = $("<div>");
@@ -195,10 +206,10 @@ function dealACard(who){
 
   if(who === player){
     var value = getHandValue(player);
-    $("#pvalues").html(value + "");
+    $("#pvalues").text(value + "");
   } else {
     var dealerValue = getHandValue(dealer);
-    $("#dvalues").html(dealerValue + "");
+    $("#dvalues").text(dealerValue + "");
   }
 }
 
