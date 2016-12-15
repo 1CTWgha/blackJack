@@ -143,14 +143,14 @@ function playerHit() {//adding click event to hit me button
   //   $("#hit").attr("disabled", true);
   //   $("#stay").attr("disabled", true);
   // }
-  else {
-    winner(player);
-    $("#hit").attr("disabled", true);
-    $("#stay").attr("disabled", true);
-    // $("#hit").off();
-    // $("#stay").off();
-    return;
-  }
+  // else {
+  //   winner(player);
+  //   $("#hit").attr("disabled", true);
+  //   $("#stay").attr("disabled", true);
+  //   // $("#hit").off();
+  //   // $("#stay").off();
+  //   return;
+  // }
 }
 
 
