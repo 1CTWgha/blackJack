@@ -6,29 +6,25 @@ var player = {"hand": []};
 $(document).ready(function (){
 initalizeDeck();
 initializeHands();
-//check for dealer win = 21
-// addCard();
 $("#hit").on("click", playerHit);
 $("#stay").on("click", playerStay);
-
 $("#reset").on("click", resetGame);
 });
 
 function resetGame(){
-
 $("#result").text("");
-// $("#pvalues").text("");
-// $("#dvalues").text("");
 $("#pcards").html("");
 $("#dcards").html("");
+$("#hit").attr("disabled", false);
+$("#stay").attr("disabled", false);
 // getHandValue();
-
+// dealer.hand=[];
+// player.hand=[];
 initalizeDeck();
 initializeHands();
-$("#hit").on("click", playerHit);
-$("#stay").on("click", playerStay);
-$("#reset").on("click", resetGame);
-
+// $("#hit").on("click", playerHit);
+// $("#stay").on("click", playerStay);
+// $("#reset").on("click", resetGame);
 }
 
 function dealACard(who){//assign values to existing divs
@@ -56,19 +52,25 @@ function playerStay(){
     dealACard(dealer);
     var val = getHandValue(dealer);
     if (val < 21){
-      $("#hit").off();
-      $("#stay").off();
+      $("#hit").attr("disabled", true);
+      $("#stay").attr("disabled", true);
+      // $("#hit").off();
+      // $("#stay").off();
       continue;
     }
     else if (val > 21){
       busted(dealer);
-      $("#hit").off();
-      $("#stay").off();
+      $("#hit").attr("disabled", true);
+      $("#stay").attr("disabled", true);
+      // $("#hit").off();
+      // $("#stay").off();
       return;
     } else {
       winner(dealer);
-      $("#hit").off();
-      $("#stay").off();
+      $("#hit").attr("disabled", true);
+      $("#stay").attr("disabled", true);
+      // $("#hit").off();
+      // $("#stay").off();
       return;
     }
   }
@@ -77,33 +79,38 @@ function playerStay(){
   } else {
     winner(player);
   }
-      // winner(player);
-  // for (var i=0; i<dealer.hand; i++){
-  //   var dealerScore = 0;
-  //   dealerScore += dealer.hand[i];
-  //   console.log(dealerScore);
-  //   }
-  $("#hit").off();
-  $("#stay").off();
+  $("#hit").attr("disabled", true);
+  $("#stay").attr("disabled", true);
+  // $("#hit").off();
+  // $("#stay").off();
   return;
 }
 
 function playerHit() {//adding click event to hit me button
 // event.preventDefault();//preventing reset of page
+  console.log("before", player.hand);
   dealACard(player);
+  console.log("after deal a card", player.hand);
+
   var val = getHandValue(player);
+  console.log("after get ahand value", player.hand, val);
+
   if (val < 21){
     return;
   }
   else if (val > 21){
     busted(player);
-    $("#hit").off();
-    $("#stay").off();
+    $("#hit").attr("disabled", true);
+    $("#stay").attr("disabled", true);
+    // $("#hit").off();
+    // $("#stay").off();
     return;
   } else {
     winner(player);
-    $("#hit").off();
-    $("#stay").off();
+    $("#hit").attr("disabled", true);
+    $("#stay").attr("disabled", true);
+    // $("#hit").off();
+    // $("#stay").off();
     return;
   }
 }
@@ -116,13 +123,6 @@ function busted(who){
 function winner(who){
   $("#result").text((((who === player)?"Player":"Dealer") + " is the winner."));
 }
-
-// function addCard(board){//need to loop through dealer and player cards//add second parameter to show card
-//   var cardDiv = $('<div>');//creating a new div element
-//   cardDiv.addClass('card');//giving the new div a class of card
-//   board.append(cardDiv);//inserting the new div to the end of the board
-//   return cardDiv;//return the new card div
-// }
 
 function initalizeDeck(){
   for (var i = 0; i<cardNames.length; i++){//loops through cardNames
@@ -224,6 +224,13 @@ function initializeHands(){//run after initalizeDeck
   dealACard(player);
   dealACard(player);
 }
+
+// function addCard(board){//need to loop through dealer and player cards//add second parameter to show card
+//   var cardDiv = $('<div>');//creating a new div element
+//   cardDiv.addClass('card');//giving the new div a class of card
+//   board.append(cardDiv);//inserting the new div to the end of the board
+//   return cardDiv;//return the new card div
+// }
 
 function evaluateHand(who){
   var total = 0;
