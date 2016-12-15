@@ -15,12 +15,13 @@ $("#reset").on("click", resetGame);
 });
 
 function resetGame(){
-// document.getElementById(elementID).innerHTML = "";
+
 $("#result").text("");
-$("#pvalues").text("");
-$("#dvalues").text("");
+// $("#pvalues").text("");
+// $("#dvalues").text("");
 $("#pcards").html("");
 $("#dcards").html("");
+// getHandValue();
 
 initalizeDeck();
 initializeHands();
@@ -29,6 +30,26 @@ $("#stay").on("click", playerStay);
 $("#reset").on("click", resetGame);
 
 }
+
+function dealACard(who){//assign values to existing divs
+  var where = (who === player)?"#pcards":"#dcards";
+  var card = pickACard();
+  var div = $("<div>");
+  div.addClass("card");
+  who.hand.push(card);
+  // card = card.substring(0, card.length-4);
+  div.html('<img src="img/' + card + '"/>' );
+  $(where).append(div);
+
+  if(who === player){
+    var value = getHandValue(player);
+    $("#pvalues").text(value);
+  } else {
+    var dealerValue = getHandValue(dealer);
+    $("#dvalues").text(dealerValue + "");
+  }
+}
+
 
 function playerStay(){
   while(getHandValue(dealer) < 17){
@@ -144,11 +165,11 @@ function getCardValue(cardName){
 // }
 
 function getHandValue(who){
+  // console.log(who.hand);
 var minTotal = 0;
   for (var i = 0; i<who.hand.length; i++){
     var val = getCardValue(who.hand[i]);
     minTotal += val;
-
   }
   var maxTotal = minTotal;
   for (var j = 0; j<who.hand.length; j++){
@@ -195,26 +216,9 @@ function hideFirstDealerCard(){//gets card from makes card visible
   // $().addClass("hidden-card");
 }
 
-function dealACard(who){//assign values to existing divs
-  var where = (who === player)?"#pcards":"#dcards";
-  var card = pickACard();
-  var div = $("<div>");
-  div.addClass("card");
-  who.hand.push(card);
-  // card = card.substring(0, card.length-4);
-  div.html('<img src="img/' + card + '"/>' );
-  $(where).append(div);
-
-  if(who === player){
-    var value = getHandValue(player);
-    $("#pvalues").text(value + "");
-  } else {
-    var dealerValue = getHandValue(dealer);
-    $("#dvalues").text(dealerValue + "");
-  }
-}
-
 function initializeHands(){//run after initalizeDeck
+  dealer.hand=[];
+  player.hand=[];
   dealACard(dealer);
   dealACard(dealer);
   dealACard(player);
