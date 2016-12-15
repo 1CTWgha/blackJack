@@ -27,6 +27,7 @@ initializeHands();
 $("#hit").on("click", playerHit);
 $("#stay").on("click", playerStay);
 $("#reset").on("click", resetGame);
+
 }
 
 function playerStay(){
