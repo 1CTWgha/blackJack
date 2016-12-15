@@ -132,18 +132,26 @@ function getCardValue(cardName){
 // }
 
 function getHandValue(who){
-var total = 0;
+var minTotal = 0;
   for (var i = 0; i<who.hand.length; i++){
     var val = getCardValue(who.hand[i]);
-    total += val;
-    // if (total += value < 21){
-    //   total += val;
-    // } else {
-    //   return "busted";
-    // }
+    minTotal += val;
   }
-  return total;
+  var maxTotal = minTotal;
+  for (var j = 0; j<who.hand.length; j++){
+    if (getCardValue(who.hand[j]) === 1 && maxTotal + 10 <= 21) {
+        maxTotal += 10;
+  }
 }
+return maxTotal;
+
+}
+    // var maxScore = minScore;
+    // cards.forEach(function(card){
+    //   // checks if setting an ace value to 11 busts the hand. if not, add 10 to value of ace.
+    //   if (card.value === 1 && maxScore + 10 <= 21) {
+    //     maxScore += 10;
+
 
 function getRandomNumber (min, max){//order maders
   return Math.floor(Math.random()*(max - min + 1));//gives me a random number when values entered
