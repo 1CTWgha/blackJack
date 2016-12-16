@@ -1,6 +1,7 @@
 body{
   background-image: url(../img/blackJack_texture_game.png);
   color: #ffffff;
+  text-align: center;
 }
 .card {
   display: inline-block;
