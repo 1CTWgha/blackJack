@@ -1,14 +1,11 @@
-var deck = [];// will contain card objects
+var deck = [];
 var dealer = {"hand": []};
 var player = {"hand": []};
-// var board = document.getElementById("#inner");//is to append new div
 
 $(document).ready(function (){
 initalizeDeck();
 initializeHands();
 isHand21();
-// cardDown();
-
 $("#hit").on("click", playerHit);
 $("#stay").on("click", playerStay);
 $("#reset").on("click", resetGame);
@@ -20,16 +17,11 @@ $("#pcards").html("");
 $("#dcards").html("");
 $("#hit").attr("disabled", false);
 $("#stay").attr("disabled", false);
-// getHandValue();
-// dealer.hand=[];
-// player.hand=[];
 initalizeDeck();
 initializeHands();
 isHand21();
-// $("#hit").on("click", playerHit);
-// $("#stay").on("click", playerStay);
-// $("#reset").on("click", resetGame);
 }
+
 
 function isHand21(){
       if(getHandValue(dealer) == 21){
@@ -51,48 +43,17 @@ function dealACard(who){//assign values to existing divs
   var div = $("<div>");
   div.addClass("card");
   who.hand.push(card);
-  // card = card.substring(0, card.length-4);
   div.html('<img src="img/' + card + '"/>' );
   $(where).append(div);
   $("#dcards .card img").eq(1).hide();
-  // $("#dcards").invisible();
-  // $( "div:visible" ).click(function() {
-  // $( this ).css( "background", "yellow" );
-  // });
-  // $("#dcards img")[0].hide();
-  // $("#dcards img")[0].css( "background", "yellow" );
 
-
-  // document.getElementById("dcards").style.visibility = "hidden";
-
-  // $("#dcards").style.visibility = "hidden";
-
-  // var dealVal = getHandValue(dealer);
-  // var playVal = getHandValue(player);
   if(who === player){
     var value = getHandValue(player);
     $("#pvalues").text(value);
   } else {
     var dealerValue = getHandValue(dealer);
-    // $("#dvalues").text(dealerValue + "");
-      // $(dealerValue).hide();
   }
 }
-
-function cardDown(who){//need to loop through dealer and player cards//add second parameter to show card
-  var cardDiv = $('<div>');//creating a new div element
-  cardDiv.addClass('card');//giving the new div a class of card
-  who.hand.push(cardDiv);//inserting the new div to the end of the board
-  return cardDiv;//return the new card div
-}
-
-// function hideFirstDealerCard(){//gets card from makes card visible
-//   // once cards are on the page.
-//   // use jQuery to select the first dealer card and apply a special class
-//   // to it so it's hidden.
-//   // $().addClass("hidden-card");
-// }
-
 
 
 function playerStay(){
@@ -102,29 +63,18 @@ function playerStay(){
     if (val < 21){
       $("#hit").attr("disabled", true);
       $("#stay").attr("disabled", true);
-      // $("#hit").off();
-      // $("#stay").off();
       continue;
     }
     else if (val > 21){
       busted(dealer);
       $("#hit").attr("disabled", true);
       $("#stay").attr("disabled", true);
-      // $("#hit").off();
-      // $("#stay").off();
       return;
     }
-    // else if (val(dealer) == 21){
-    //   winner(dealer);
-    //   $("#hit").attr("disabled", true);
-    //   $("#stay").attr("disabled", true);
-    // }
     else {
       winner(dealer);
       $("#hit").attr("disabled", true);
       $("#stay").attr("disabled", true);
-      // $("#hit").off();
-      // $("#stay").off();
       return;
     }
   }
@@ -135,13 +85,10 @@ function playerStay(){
   }
   $("#hit").attr("disabled", true);
   $("#stay").attr("disabled", true);
-  // $("#hit").off();
-  // $("#stay").off();
   return;
 }
 
-function playerHit() {//adding click event to hit me button
-// event.preventDefault();//preventing reset of page
+function playerHit() {
   console.log("before", player.hand);
   dealACard(player);
   console.log("after deal a card", player.hand);
@@ -161,23 +108,8 @@ function playerHit() {//adding click event to hit me button
     busted(player);
     $("#hit").attr("disabled", true);
     $("#stay").attr("disabled", true);
-    // $("#hit").off();
-    // $("#stay").off();
     return;
   }
-  // else if (val(dealer) == 21){
-  //   winner(dealer);
-  //   $("#hit").attr("disabled", true);
-  //   $("#stay").attr("disabled", true);
-  // }
-  // else {
-  //   winner(player);
-  //   $("#hit").attr("disabled", true);
-  //   $("#stay").attr("disabled", true);
-  //   // $("#hit").off();
-  //   // $("#stay").off();
-  //   return;
-  // }
 }
 
 
@@ -200,7 +132,6 @@ function initalizeDeck(){
 
 function getCardValue(cardName){
   var rank = cardName.split("_", 1)[0];//divide argument by "_" only once similar to parsInt; {gives me a string not an array not sure if [] still needed at the end}
-  //want strings so that I can evaluate face cards and aces
   var valueOne = parseInt(rank, 10);//makes a number
   if (isNaN(valueOne)){ //if not a number
     if (rank === "ace") {//if first value = a
@@ -214,25 +145,8 @@ function getCardValue(cardName){
     }
 }
 
-// function checkCard (){//called when
-//   var randNum = Math.floor(Math.random()*51);
-//     for (var i =0; i<player.hand.length; i++){
-//       if(player.hand[i] === cardNames[randNum]){
-//         checkCard();
-//       }
-//       console.log("in for loop function");
-//     }
-//     for (var j =0; j<dealer.hand.length; j++){
-//       if(dealer.hand[i] === cardNames[randNum]){
-//         checkCard();
-//       }
-//     }
-//     player.hand.push(cardNames[randNum]);
-//     console.log(player.hand);
-// }
 
 function getHandValue(who){
-  // console.log(who.hand);
 var minTotal = 0;
   for (var i = 0; i<who.hand.length; i++){
     var val = getCardValue(who.hand[i]);
@@ -243,26 +157,13 @@ var minTotal = 0;
     if (getCardValue(who.hand[j]) === 1 && maxTotal + 10 <= 21) {
         maxTotal += 10;
   }
-
+  }
+  return maxTotal;
 }
-return maxTotal;
-
-}
-    // var maxScore = minScore;
-    // cards.forEach(function(card){
-    //   // checks if setting an ace value to 11 busts the hand. if not, add 10 to value of ace.
-    //   if (card.value === 1 && maxScore + 10 <= 21) {
-    //     maxScore += 10;
-
-
-
-// return minTotal;
-// }
 
 function getRandomNumber (min, max){//order maders
   return Math.floor(Math.random()*(max - min + 1));//gives me a random number when values entered
 }
-// Min + (int)(Math.random() * ((Max - Min) + 1))
 
 function pickACard(){//use above to get a card
   do {//push a card into an array fro every card that is dealt
@@ -288,7 +189,6 @@ function initializeHands(){//run after initalizeDeck
 function evaluateHand(who){
   var total = 0;
   for (var i = 0; i<who.hand.length; i++){//loops over the hand and grabs the hand from the who
-    //need to figure out how to pull in the hand of who
     var value = getCardValue(who.hand[i]);
     total += value;
   }
@@ -304,56 +204,3 @@ function countAce(hand){//pass in the hand
   }
   return aceCount;//return the number of aces
 }
-
-// function any21(values){
-//   for(var i = 0; i<values.length; i++){
-//     if(values[i] === 21){
-//       return true; //value equales 21
-//     }
-//   }
-//   return false;//value does not equal 21
-// }
-// function calculateScore(cards) {
-//     var minScore = 0;
-//     cards.forEach(function(card){
-//       minScore += card.value;
-//     });
-//
-//     var maxScore = minScore;
-//     cards.forEach(function(card){
-//       // checks if setting an ace value to 11 busts the hand. if not, add 10 to value of ace.
-//       if (card.value === 1 && maxScore + 10 <= 21) {
-//         maxScore += 10;
-//       }
-//     });
-//     console.log("maxscore", maxScore);
-//     return maxScore;
-//   }
-
-
-//
-// function stayMe(){
-//   $("#stay").on("click", function() {//adding click event to hit me button
-//   event.preventDefault();//preventing reset of page
-//   return evaluateHand(player);//returns the value from evaluateHand(no more cards)
-//
-// });
-// }
-
-// function runPlayer(){//look at and evaluate players hand
-//   if(=21){
-//     alert("player wins");
-//   } else {
-//     $("#hit").on("click", hitMe());
-//     $("stay").on("click", stayMe());
-//     //add click events to the hit and stay buttons
-//   }
-//  }
-
-// function runDealer(){//look at and evaluate dealer hand
-//   if(dealerhand21){
-//     //announce player winner
-//   } else {
-//     //add click events to the hit and stay buttons
-//   }
-//  }
