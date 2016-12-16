@@ -51,10 +51,6 @@ function dealACard(who){//assign values to existing divs
     var value = getHandValue(player);
     $("#pvalues").text(value);
   }
-  //   else {
-  //   var dealerValue = getHandValue(dealer);
-  //   $("#dvalues").text(dealerValue);
-  // }
 }
 
 

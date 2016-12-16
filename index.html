@@ -7,27 +7,26 @@
   </head>
   <body>
     <div id="container">
-        <br>
-        <h1>Blackjack</h1>
-        <div>
-          <p>Closest to 21 without exceeding 21 wins. Dealer hits until 17 and wins all ties. Ace can be 1 or 11 and all face cards are 10.
-          Hit when you want one more card and you may hit as many times as you want until you're total exceeds 21 at which point you bust.
-          Only one dealer card is visable until the player hits stay.
-          </p>
-        </div>
-        <br>
-        <div id="result"></div>
-        <h3>Dealer</h3>
-        <div id="dvalues">
-        <div id="dcards"></div>
-        </div>
-        <h3>Player</h3>
-        <div id="pvalues"></div>
-        <div id="pcards" ></div>
-        <button id="hit" type="button">Hit</button>
-        <button  id="stay" type="button">Stay</button>
-        <button id="reset" type="button">New Game</button>
+      <br>
+      <h1>Blackjack</h1>
+      <div>
+        <p>Closest to 21 without exceeding 21 wins. Dealer hits until 17 and wins all ties unless player hits 21 on the drop and the dealer does not. Ace can be 1 or 11 and all face cards are 10.
+        Hit when you want one more card and you may hit as many times as you want until you're total exceeds 21 at which point you bust.
+        Only one dealer card is visable until the player hits stay.
+        </p>
       </div>
+      <br>
+      <div id="result"></div>
+        <h3>Dealer</h3>
+      <div id="dvalues"></div>
+      <div id="dcards"></div>
+      <h3>Player</h3>
+      <div id="pvalues"></div>
+      <div id="pcards" ></div>
+      <button id="hit" type="button">Hit</button>
+      <button  id="stay" type="button">Stay</button>
+      <button id="reset" type="button">New Game</button>
+    </div>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <!-- Include all compiled plugins (below), or include individual files as needed -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
