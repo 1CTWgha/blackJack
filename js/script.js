@@ -3,23 +3,23 @@ var dealer = {"hand": []};
 var player = {"hand": []};
 
 $(document).ready(function (){
-initalizeDeck();
-initializeHands();
-isHand21();
-$("#hit").on("click", playerHit);
-$("#stay").on("click", playerStay);
-$("#reset").on("click", resetGame);
+  initalizeDeck();
+  initializeHands();
+  isHand21();
+  $("#hit").on("click", playerHit);
+  $("#stay").on("click", playerStay);
+  $("#reset").on("click", resetGame);
 });
 
 function resetGame(){
-$("#result").text("");
-$("#pcards").html("");
-$("#dcards").html("");
-$("#hit").attr("disabled", false);
-$("#stay").attr("disabled", false);
-initalizeDeck();
-initializeHands();
-isHand21();
+  $("#result").text("");
+  $("#pcards").html("");
+  $("#dcards").html("");
+  $("#hit").attr("disabled", false);
+  $("#stay").attr("disabled", false);
+  initalizeDeck();
+  initializeHands();
+  isHand21();
 }
 
 
@@ -50,9 +50,11 @@ function dealACard(who){//assign values to existing divs
   if(who === player){
     var value = getHandValue(player);
     $("#pvalues").text(value);
-  } else {
-    var dealerValue = getHandValue(dealer);
   }
+  //   else {
+  //   var dealerValue = getHandValue(dealer);
+  //   $("#dvalues").text(dealerValue);
+  // }
 }
 
 
@@ -78,14 +80,14 @@ function playerStay(){
       return;
     }
   }
-  if (getHandValue(dealer) >= getHandValue(player)){
-    winner(dealer);
+    if (getHandValue(dealer) >= getHandValue(player)){
+      winner(dealer);
   } else {
-    winner(player);
+      winner(player);
   }
-  $("#hit").attr("disabled", true);
-  $("#stay").attr("disabled", true);
-  return;
+    $("#hit").attr("disabled", true);
+    $("#stay").attr("disabled", true);
+    return;
 }
 
 function playerHit() {
@@ -140,7 +142,7 @@ function getCardValue(cardName){
       return 10;// then it must be a face card with a value of 10
     }
   }
-    else {// only remaing possibilities are numeric cards
+      else {// only remaing possibilities are numeric cards
       return valueOne;//so return the numeric card value
     }
 }

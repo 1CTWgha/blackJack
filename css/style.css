@@ -15,6 +15,7 @@ img {
 #container {
   margin: 0 auto;
   align: center;
+  width: 800px;
 }
 #result {
   font-weight: bold;
