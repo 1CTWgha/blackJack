@@ -7,31 +7,24 @@
   </head>
   <body>
     <div id="container">
+        <br>
         <h1>Blackjack</h1>
-        <p>Closest player to 21 without exceeding 21 wins. Dealer hits until 17 and wins all ties. Ace can be 1 or 11 and all face cards are 10.</p>
-        <br/>
-        Dealer
-        <br/>
+        <p>Closest to 21 without exceeding 21 wins. Dealer hits until 17 and wins all ties. Ace can be 1 or 11 and all face cards are 10.</p>
+        <p>Hit when you want one more card and you may hit as many times as you want until you're total exceeds 21 at which point you bust.</p>
+        <p>Only one dealer card is visable until the player hits stay.</p>
+        <br>
+        <div id="result"></div>
+        <h3>Dealer</h3>
         <div id="dcards"></div>
         <div id="dvalues">
         </div>
-
-        <br/>
-        Player
-        <br/>
-        <div id="pcards" >
-        </div>
-        <div id="pvalues">
-        </div>
-    </div>
-
-    <button id="hit" type="button">Hit</button>
-    <button  id="stay" type="button">Stay</button>
-    <button id="reset" type="button">New Game</button>
-
-    <br/>
-  <div id="result"></div>
-
+        <h3>Player</h3>
+        <div id="pvalues"></div>
+        <div id="pcards" ></div>
+        <button id="hit" type="button">Hit</button>
+        <button  id="stay" type="button">Stay</button>
+        <button id="reset" type="button">New Game</button>
+      </div>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <!-- Include all compiled plugins (below), or include individual files as needed -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>

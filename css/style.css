@@ -3,6 +3,11 @@ body{
   color: #ffffff;
   text-align: center;
 }
+img {
+  height: 125px;
+  width: 100px;
+  margin: 10px;
+}
 .card {
   display: inline-block;
   text-align: center;
@@ -11,8 +16,7 @@ body{
   margin: 0 auto;
   align: center;
 }
-img {
-  height: 125px;
-  width: 100px;
-  margin: 10px;
+#result {
+  font-weight: bold;
+  font-size: 50px;
 }
