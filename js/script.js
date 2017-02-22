@@ -154,7 +154,7 @@ var minTotal = 0;
   for (var j = 0; j<who.hand.length; j++){
     if (getCardValue(who.hand[j]) === 1 && maxTotal + 10 <= 21) {
         maxTotal += 10;
-  }
+      }
   }
   return maxTotal;
 }
@@ -202,3 +202,12 @@ function countAce(hand){//pass in the hand
   }
   return aceCount;//return the number of aces
 }
+
+//needs to be more responsive
+//animation and the cards
+//break between when you get card and dealer hand is shown
+//add more decks
+//use chips maybe?
+//score function how many times you won vs lost
+//multiple hands and spliting
+//account for a soft 17
